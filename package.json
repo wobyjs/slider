@@ -1,0 +1,44 @@
+{
+    "name": "voby-slider",
+    "version": "1.0.0",
+    "description": "",
+    "keywords": [],
+    "main": "./dist/index.cjs.js",
+    "module": "./dist/index.es.js",
+    "browser": "./dist/index.umd.js",
+    "types": "./dist/types/index.d.ts",
+    "devDependencies": {
+        "tailwindcss": "^3.3.3",
+        "vite": "^4.4.9",
+        "vite-plugin-dts": "^2.3.0",
+        "vite-plugin-svgr": "^3.2.0"
+    },
+    "scripts": {
+        "start": "vite dev",
+        "deploy": "npm run docs:build && npm run docs:deploy",
+        "prettier": "prettier --write \"**/*.{js,jsx,tsx,ts,less,md,json}\"",
+        "css:watch": "tailwindcss -i ./src/input.css -o ./dist/output.css --watch",
+        "css": "tailwindcss -i ./src/input.css -o ./dist/output.css",
+        "declaration": "tsc --project tsconfig.lib.json --declaration --emitDeclarationOnly ",
+        "declaration:watch": "tsc --build --force --declaration --emitDeclarationOnly --verbose --watch",
+        "watch": "run-p build:watch css:watch",
+        "build": "run-s css build:vite css declaration",
+        "build:web": "vite build --config=vite.config.web.ts --force --mode production",
+        "web": "vite preview --config=vite.config.web.ts --host",
+        "dev:only": "vite --config=vite.config.web.ts --force --mode dev --host",
+        "dev": "run-p css:watch dev:only",
+        "build:vite": "vite build",
+        "build:watch": "vite build --watch",
+        "preview": "vite preview --host"
+    },
+    "peerDependencies": {
+        "voby": "workspace:../woby",
+        "voby-styled": "workspace:../voby-styled"
+    },
+    "browserslist": [
+        ">0.2%",
+        "not dead",
+        "not ie <= 11",
+        "not op_mini all"
+    ]
+}
