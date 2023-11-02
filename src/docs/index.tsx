@@ -1,4 +1,5 @@
-import { render, type JSX } from "voby"
+import { render, type JSX } from 'woby'
+
 
 import { App } from "./App"
 

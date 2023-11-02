@@ -1,4 +1,5 @@
-import { $, $$, ObservableMaybe, type JSX } from "voby"
+import { $, $$, ObservableMaybe, type JSX } from 'woby'
+
 import { Slider } from "../../slider"
 
 interface HorizontalCustomLabelsProps { }

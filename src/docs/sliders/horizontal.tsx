@@ -1,4 +1,5 @@
-import { $, type JSX } from "voby"
+import { $, $$, useEffect, type JSX } from 'woby'
+
 import { Slider } from "../../slider"
 
 function Horizontal() {
@@ -20,6 +21,7 @@ function Horizontal() {
         console.log("Change event completed")
     }
 
+    useEffect(() => console.log($$(value)))
     return (
         <div class="slider">
             <Slider

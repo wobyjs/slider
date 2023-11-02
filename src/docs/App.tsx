@@ -1,4 +1,5 @@
-import { Observable, type JSX } from 'voby'
+import { Observable, type JSX } from 'woby'
+
 
 import Examples from "./example"
 import '../../dist/output.css'

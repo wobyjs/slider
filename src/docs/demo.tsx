@@ -1,4 +1,5 @@
-import { $, type JSX } from "voby"
+import { $, type JSX } from 'woby'
+
 
 interface DemoProps {
     title: string

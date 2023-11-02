@@ -1,5 +1,5 @@
-import { jsx, jsxs } from "voby/jsx-runtime";
-import { $, $$, useEffect, useMemo } from "voby";
+import { jsx, jsxs } from "woby/jsx-runtime";
+import { $, $$, useEffect, useMemo } from "woby";
 function capitalize(str) {
   return str.charAt(0).toUpperCase() + str.substr(1);
 }

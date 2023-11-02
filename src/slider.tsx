@@ -1,4 +1,4 @@
-import { $, $$, useEffect, useMemo, ObservableMaybe, type JSX, ObservableReadonly, Observable, Child } from "voby"
+import { $, $$, useEffect, useMemo, ObservableMaybe, type JSX, ObservableReadonly, Observable, Child } from 'woby'
 import { capitalize, clamp } from "./utils"
 
 // /https://whoisandy.github.io/react-rangeslider/

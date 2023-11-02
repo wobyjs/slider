@@ -1,4 +1,5 @@
-import { $, type JSX } from "voby"
+import { $, type JSX } from 'woby'
+
 import { Slider } from "../../slider"
 
 export const FloatExample = () => {

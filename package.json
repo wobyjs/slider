@@ -1,5 +1,5 @@
 {
-    "name": "voby-slider",
+    "name": "woby-slider",
     "version": "1.0.0",
     "description": "",
     "keywords": [],
@@ -9,9 +9,9 @@
     "types": "./dist/types/index.d.ts",
     "devDependencies": {
         "tailwindcss": "^3.3.3",
-        "vite": "^4.4.9",
+        "vite": "^4.4.11",
         "vite-plugin-dts": "^2.3.0",
-        "vite-plugin-svgr": "^3.2.0"
+        "vite-plugin-svgr": "^3.3.0"
     },
     "scripts": {
         "start": "vite dev",
@@ -32,8 +32,8 @@
         "preview": "vite preview --host"
     },
     "peerDependencies": {
-        "voby": "workspace:../woby",
-        "voby-styled": "workspace:../voby-styled"
+        "woby": "workspace:../woby",
+        "woby-styled": "workspace:../woby-styled"
     },
     "browserslist": [
         ">0.2%",

@@ -1,4 +1,4 @@
-import { type JSX } from "voby"
+import { type JSX } from 'woby'
 import { Horizontal, Negative, FloatExample, Labels, Orientation } from "./sliders"
 import Demo from "./demo"
 // import Codeblock from './Codeblock'
