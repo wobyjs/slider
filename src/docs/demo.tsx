@@ -17,7 +17,7 @@ function Demo({ title, children }: DemoProps) {
     const className = ["bg-white pt-5 rounded-bl rounded-br ", { source: source }]
 
     return (
-        <div className="demo-panel border mb-20 border-[solid] [&_.slider]:p-[40px] w-[80%] my-0 mx-auto">
+        <div className="demo-panel border mb-20 border-solid [&_.slider]:p-[40px] w-[80%] my-0 mx-auto">
             <div
                 className="demo-panel-title
 bg-[#2d2d2d] bg-[smoke] overflow-hidden px-5 py-2.5 border-b-[50%)_solid] border-b after:clear-both
@@ -35,7 +35,7 @@ after:table after:content-['_'] after:clear-both
                 </a>
             </div>
             <div className={className}>{children}</div>
-        </div >
+        </div>
     )
 }
 

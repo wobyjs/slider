@@ -11,11 +11,6 @@ function Horizontal() {
         console.log("Change event started")
     }
 
-    // // Event handler for the slider value change
-    // const handleChange = (newValue: number) => {
-    //     value(newValue)
-    // }
-
     // Event handler for the change event completion
     const handleChangeComplete = () => {
         console.log("Change event completed")
