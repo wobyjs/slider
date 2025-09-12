@@ -15,7 +15,7 @@ interface SliderProps {
     alwaysOnTooltip?: ObservableMaybe<boolean>
     reverse?: ObservableMaybe<boolean>
     labels?: ObservableMaybe<Record<string, JSX.Child>>
-    formatLabel?: (value: ObservableMaybe<number>) => JSX.Child
+    formatLabel?: ObservableMaybe<number>
     formatTooltip?: (value: ObservableMaybe<number>) => JSX.Child
     onChangeStart?: (e: MouseEvent | TouchEvent) => void
     onChange?: (value: number, e: MouseEvent | TouchEvent | KeyboardEvent) => void
@@ -143,12 +143,12 @@ export const Slider = (props: SliderProps & JSX.HTMLAttributes<HTMLDivElement>) 
         switch (keyCode) {
             case 38:
             case 39:
-                sliderValue($$(value) + $$(step) > $$(max) ? $$(max) : $$(value) + $$(step))
+                sliderValue((+$$(value)) + (+$$(step)) > (+$$(max)) ? (+$$(max)) : (+$$(value)) + (+$$(step)))
                 onChange?.($$(sliderValue), e)
                 break
             case 37:
             case 40:
-                sliderValue($$(value) - $$(step) < $$(min) ? $$(min) : $$(value) - $$(step))
+                sliderValue((+$$(value)) - (+$$(step)) < (+$$(min)) ? (+$$(min)) : (+$$(value)) - (+$$(step)))
                 onChange?.($$(sliderValue), e)
                 break
             default:
@@ -156,8 +156,8 @@ export const Slider = (props: SliderProps & JSX.HTMLAttributes<HTMLDivElement>) 
     }
 
     const getPositionFromValue = (value: number, isLabel = false): number => {
-        const diffMaxMin = $$(max) - $$(min)
-        const diffValMin = value - $$(min)
+        const diffMaxMin = (+$$(max)) - (+$$(min))
+        const diffValMin = value - (+$$(min))
         const percentage = diffValMin / diffMaxMin
         // const pos = Math.round(percentage * ($$(limit) +
         //     ($$(reverse) ?
@@ -167,7 +167,7 @@ export const Slider = (props: SliderProps & JSX.HTMLAttributes<HTMLDivElement>) 
         //     ($$(isHorizontal) ? $$(grab) * 2 : -$$(grab) * 2) :
         //     ($$(isHorizontal) ? $$(grab) * 2 : 0))
         // )
-        const pos = Math.round(percentage * (isLabel ? $$(sliderDim) : $$(limit)))
+        const pos = Math.round(percentage * (isLabel ? (+$$(sliderDim)) : (+$$(limit))))
 
         return pos
     }
@@ -175,10 +175,10 @@ export const Slider = (props: SliderProps & JSX.HTMLAttributes<HTMLDivElement>) 
     const isHorizontal = useMemo(() => $$(orientation) === 'horizontal')
 
     const getValueFromPosition = (pos: number): number => {
-        const percentage = clamp(pos, 0, $$(limit)) / ($$(limit) || 1)
-        const baseVal = $$(step) * Math.round((percentage * ($$(max) - $$(min))) / $$(step))
-        const result = $$(isHorizontal) ? baseVal + $$(min) : $$(max) - baseVal
-        return clamp(result, $$(min), $$(max))
+        const percentage = clamp(pos, 0, (+$$(limit))) / ((+$$(limit)) || 1)
+        const baseVal = (+$$(step)) * Math.round((percentage * ((+$$(max)) - (+$$(min)))) / (+$$(step)))
+        const result = $$(isHorizontal) ? baseVal + (+$$(min)) : (+$$(max)) - baseVal
+        return clamp(result, (+$$(min)), (+$$(max)))
     }
 
     const position = (e: MouseEvent | TouchEvent) => {
@@ -196,8 +196,8 @@ export const Slider = (props: SliderProps & JSX.HTMLAttributes<HTMLDivElement>) 
         //     : $$(limit) - (coordinate - direction + ($$(grab)))
 
         const pos = $$(reverse)
-            ? direction - coordinate - $$(grab)
-            : coordinate - direction - $$(grab)
+            ? direction - coordinate - (+$$(grab))
+            : coordinate - direction - (+$$(grab))
 
         sliderValue(getValueFromPosition(pos))
         return sliderValue
@@ -213,8 +213,8 @@ export const Slider = (props: SliderProps & JSX.HTMLAttributes<HTMLDivElement>) 
         //     ($$(isHorizontal) ? handlePos + $$(grab) : $$(limit) - handlePos) :
         //     ($$(isHorizontal) ? $$(limit) - handlePos : handlePos)
 
-        const handlePos = $$(isHorizontal) ? position + $$(grab) : position
-        const fillPos = $$(isHorizontal) ? handlePos : $$(limit) - handlePos
+        const handlePos = $$(isHorizontal) ? position + (+$$(grab)) : position
+        const fillPos = $$(isHorizontal) ? handlePos : (+$$(limit)) - handlePos
 
         // console.log('coords', pos, value, position, handlePos, fillPos)
         return {
@@ -222,16 +222,14 @@ export const Slider = (props: SliderProps & JSX.HTMLAttributes<HTMLDivElement>) 
             handle: handlePos,
             label: handlePos
         }
-
-
     }
 
     const renderLabels = (labels: ObservableReadonly<Record<string, JSX.Child>>) => (
-        <ul ref={labelsRef} className={["rangesliderLabels relative select-none",
+        <ul ref={labelsRef} class={["rangesliderLabels relative select-none",
             () => $$(isHorizontal) ? 'left-[-15px] top-[20px]' : 'left-[15px] top-[8px]'
         ]}
         >
-            {$$(labels)}
+            {Object.values($$(labels))}
         </ul >
     )
 
@@ -257,7 +255,7 @@ export const Slider = (props: SliderProps & JSX.HTMLAttributes<HTMLDivElement>) 
 
                 labelItems.push(
                     <li
-                        className={[
+                        class={[
                             //`
 
                             // absolute text-sm cursor-pointer inline-block top-2.5 
@@ -269,9 +267,9 @@ export const Slider = (props: SliderProps & JSX.HTMLAttributes<HTMLDivElement>) 
                             before:[transform:translate3d(0,-50%,0)] before:bg-[black] list-none`
                         ]}
                         data-value={key}
-                        onMouseDown={handleDrag}
-                        onTouchStart={handleStart}
-                        onTouchEnd={handleEnd}
+                        // onMouseDown={handleDrag}
+                        onPointerDown={handleStart}
+                        onPointerUp={handleEnd}
                         style={labelStyle}
                     >
                         {$$(labels)[key]}
@@ -320,14 +318,14 @@ export const Slider = (props: SliderProps & JSX.HTMLAttributes<HTMLDivElement>) 
             style={props.style}
 
         >
-            <div className={["rangesliderFill block shadow-[inset_0_1px_3px_rgba(0,0,0,0.4)] absolute",
+            <div class={["rangesliderFill block shadow-[inset_0_1px_3px_rgba(0,0,0,0.4)] absolute",
                 () => $$(isHorizontal) ? 'h-full bg-[#7cb342] rounded-[10px] top-0' + ($$(reverse) ? ' right-0' : '') :
                     ' w-full bg-[#7cb342] shadow-none bottom-0' + ($$(reverse) ? ' top-0' : ''),
 
             ]} style={fillStyle} />
             <div
                 ref={handleRef}
-                className={["rangesliderHandle bg-white border cursor-pointer inline-block absolute shadow-[0_1px_3px_rgba(0,0,0,0.4),0_-1px_3px_rgba(0,0,0,0.4)] border-solid border-[#ccc] ",
+                class={["rangesliderHandle bg-white border cursor-pointer inline-block absolute shadow-[0_1px_3px_rgba(0,0,0,0.4),0_-1px_3px_rgba(0,0,0,0.4)] border-solid border-[#ccc] ",
                     () => $$(isHorizontal) ? 'w-[30px] h-[30px] rounded-[30px] top-2/4 after:content-["_"] after:absolute after:w-4 after:h-4 after:bg-[#dadada] after:shadow-[0_1px_3px_rgba(0,0,0,0.4)_inset,0_-1px_3px_rgba(0,0,0,0.4)_inset] after:rounded-[50%] after:left-1.5 after:top-1.5 [transform:translate3d(-50%,-50%,0)]' :
                         'absolute w-[30px] h-2.5 shadow-none -left-2.5',
 
@@ -340,7 +338,7 @@ export const Slider = (props: SliderProps & JSX.HTMLAttributes<HTMLDivElement>) 
                 tabIndex={0}
             >
                 {() => $$(showTooltip) ? (
-                    <div ref={tooltipRef} className={["rangesliderHandle-tooltip w-10 h-10 text-center absolute bg-[rgba(0,0,0,0.8)] font-[normal] text-sm transition-all duration-100 ease-[ease-in] rounded inline-block text-[white] after:content-[' _'] after:absolute after:w-0 after:h-0 select-none",
+                    <div ref={tooltipRef} class={["rangesliderHandle-tooltip w-10 h-10 text-center absolute bg-[rgba(0,0,0,0.8)] font-[normal] text-sm transition-all duration-100 ease-[ease-in] rounded inline-block text-[white] after:content-[' _'] after:absolute after:w-0 after:h-0 select-none",
                         () => $$(isHorizontal) ? 'top-[-55px] after:border-t-8 after:border-t-[rgba(0,0,0,0.8)] after:border-x-8 after:border-x-transparent after:border-solid after:left-2/4 left-2/4 after:-bottom-2 after:[transform:translate3d(-50%,0,0)] [transform:translate3d(-50%,0%,0)]' :
                             '-left-full top-2/4 after:border-l-8 after:border-l-[rgba(0,0,0,0.8)] after:border-y-8 after:border-y-transparent after:border-solid after:left-full after:top-3 [transform:translate3d(-50%,-50%,0)]',
                         () => $$(reverse) ? ($$(isHorizontal) ? 'right-0' : 'top-0 bottom-[inherit]') : '',
@@ -348,7 +346,7 @@ export const Slider = (props: SliderProps & JSX.HTMLAttributes<HTMLDivElement>) 
                         <span class='inline-block leading-[100%] mt-3'>{() => handleTooltip($$(sliderValue))}</span>
                     </div>
                 ) : null}
-                <div className="rangesliderHandle-label select-none">{formatLabel}</div>
+                <div class="rangesliderHandle-label select-none">{formatLabel}</div>
             </div>
             {() => labels ? renderLabels(labelItems as any) : null}
         </div>

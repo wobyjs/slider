@@ -54,8 +54,7 @@
     "exclude": [
         "./src/docs",
         "node_modules",
-        "vite.config.ts",
-        "vite.config.web.ts",
+        "vite.*.*ts",
         "tailwind.config.ts",
         "dist*"
     ]

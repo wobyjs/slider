@@ -1,4 +1,4 @@
-# Woby-Slider
+# @woby/slider
 
 <p align="center">
   A fast & lightweight woby component as a drop in replacement for HTML5 input range slider element.
@@ -10,49 +10,44 @@ Ported from [React-Rangeslider](https://whoisandy.github.io/react-rangeslider/)
 Using `npm` (use `--save` to include it in your package.json)
 
 ```bash
-$ npm install woby-slider --save
+$ npm install @woby/slider --save
 ```
 
-Using `yarn` (this command also adds woby-slider to your package.json dependencies)
+Using `yarn` (this command also adds @woby/slider to your package.json dependencies)
 
 ```bash
-$ yarn add woby-slider
+$ yarn add @woby/slider
 ```
 
 
 ## Getting Started
-Woby-slider is bundled with a slider component & default styles which can be overridden depending on your design requirements.
+@woby/slider is bundled with a slider component & default styles which can be overridden depending on your design requirements.
 
 With a module bundler like webpack that supports either CommonJS or ES2015 modules, use as you would anything else:
 
 ```js
 // Using an ES6 transpiler like Babel
-import { Slider } from 'woby-slider'
-
-// To include the default styles
-import 'woby-slider/lib/index.css'
+import { Slider } from '@woby/slider'
+import '@woby/slider/lib/index.css'
 
 // Not using an ES6 transpiler
-var Slider = require('woby-slider')
+var Slider = require('@woby/slider')
+import '@woby/slider/lib/index.css'
 ```
 
-The UMD build is also available on [unpkg][unpkg]:
-
+The slider component comes with a default css file which you can include in your project:
 ```html
-<script src="https://unpkg.com/woby-slider/umd/rangeslider.min.js"></script>
+<script src="https://unpkg.com/@woby/slider/umd/rangeslider.min.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/@woby/slider/umd/rangeslider.min.css" />
 ```
 
-You can find the library on `window.ReactRangeslider`. Optionally you can drop in the default styles by adding the stylesheet.
-```html
-<link rel="stylesheet" href="https://unpkg.com/woby-slider/umd/rangeslider.min.css" />
-```
-Check out [docs & examples](https://whoisandy.github.io/woby-slider).
+Check out [docs & examples](https://wobyjs.github.io/slider).
 
 ## Basic Example
 
 ```tsx
 import { $, $$, useEffect, type JSX } from 'woby'
-import { Slider } from "woby-slider"
+import { Slider } from '@woby/slider"
 
 function Horizontal() {
     // Initialize the state value
@@ -94,7 +89,7 @@ Rangeslider is bundled as a single component, that accepts data and callbacks on
 
 ### Component
 ```jsx
-import Slider from 'woby-slider'
+import Slider from '@woby/slider'
 
 // inside render
 <Slider
@@ -147,14 +142,14 @@ Feel free to contribute. Submit a Pull Request or open an issue for further disc
 MIT
 
 
-[npm_img]: https://img.shields.io/npm/v/woby-slider.svg?style=flat-square
-[npm_site]: https://www.npmjs.org/package/woby-slider
-[license_img]: https://img.shields.io/github/license/whoisandy/woby-slider.svg
-[license_site]: https://github.com/whoisandy/woby-slider/blob/master/LICENSE
-[npm_dm_img]: http://img.shields.io/npm/dm/woby-slider.svg?style=flat-square
-[npm_dm_site]: https://www.npmjs.org/package/woby-slider
-[trav_img]: https://api.travis-ci.org/whoisandy/woby-slider.svg
-[trav_site]: https://travis-ci.org/whoisandy/woby-slider
+[npm_img]: https://img.shields.io/npm/v/@woby/slider.svg?style=flat-square
+[npm_site]: https://www.npmjs.org/package/@woby/slider
+[license_img]: https://img.shields.io/github/license/wobyjs/slider.svg
+[license_site]: https://github.com/wobyjs/slider/blob/master/LICENSE
+[npm_dm_img]: http://img.shields.io/npm/dm/@woby/slider.svg?style=flat-square
+[npm_dm_site]: https://www.npmjs.org/package/@woby/slider
+[trav_img]: https://api.travis-ci.org/wobyjs/slider.svg
+[trav_site]: https://travis-ci.org/wobyjs/slider
 [std_img]: https://img.shields.io/badge/code%20style-standard-brightgreen.svg
 [std_site]: http://standardjs.com
-[unpkg]: https://unpkg.com/woby-slider/umd/ReactRangeslider.min.js
+[unpkg]: https://unpkg.com/@woby/slider/umd/ReactRangeslider.min.js

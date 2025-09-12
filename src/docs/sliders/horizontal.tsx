@@ -16,7 +16,6 @@ function Horizontal() {
         console.log("Change event completed")
     }
 
-    useEffect(() => console.log($$(value)))
     return (
         <div class="slider">
             <Slider

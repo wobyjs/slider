@@ -73,14 +73,12 @@ const Slider = (props) => {
   };
   const handleDrag = (e) => {
     e.stopPropagation();
-    if (!onChange)
-      return;
+    if (!onChange) return;
     const {
       //@ts-ignore
       target: { className, classList, dataset }
     } = e;
-    if (className === "rangesliderLabels")
-      return;
+    if (className === "rangesliderLabels") return;
     sliderValue(position(e));
     if ((classList == null ? void 0 : classList.contains("rangesliderLabel-item")) && dataset.value) {
       sliderValue(parseFloat(dataset.value));
@@ -110,29 +108,29 @@ const Slider = (props) => {
     switch (keyCode) {
       case 38:
       case 39:
-        sliderValue($$(value) + $$(step) > $$(max) ? $$(max) : $$(value) + $$(step));
+        sliderValue(+$$(value) + +$$(step) > +$$(max) ? +$$(max) : +$$(value) + +$$(step));
         onChange == null ? void 0 : onChange($$(sliderValue), e);
         break;
       case 37:
       case 40:
-        sliderValue($$(value) - $$(step) < $$(min) ? $$(min) : $$(value) - $$(step));
+        sliderValue(+$$(value) - +$$(step) < +$$(min) ? +$$(min) : +$$(value) - +$$(step));
         onChange == null ? void 0 : onChange($$(sliderValue), e);
         break;
     }
   };
   const getPositionFromValue = (value2, isLabel = false) => {
-    const diffMaxMin = $$(max) - $$(min);
-    const diffValMin = value2 - $$(min);
+    const diffMaxMin = +$$(max) - +$$(min);
+    const diffValMin = value2 - +$$(min);
     const percentage = diffValMin / diffMaxMin;
-    const pos = Math.round(percentage * (isLabel ? $$(sliderDim) : $$(limit)));
+    const pos = Math.round(percentage * (isLabel ? +$$(sliderDim) : +$$(limit)));
     return pos;
   };
   const isHorizontal = useMemo(() => $$(orientation) === "horizontal");
   const getValueFromPosition = (pos) => {
-    const percentage = clamp(pos, 0, $$(limit)) / ($$(limit) || 1);
-    const baseVal = $$(step) * Math.round(percentage * ($$(max) - $$(min)) / $$(step));
-    const result = $$(isHorizontal) ? baseVal + $$(min) : $$(max) - baseVal;
-    return clamp(result, $$(min), $$(max));
+    const percentage = clamp(pos, 0, +$$(limit)) / (+$$(limit) || 1);
+    const baseVal = +$$(step) * Math.round(percentage * (+$$(max) - +$$(min)) / +$$(step));
+    const result = $$(isHorizontal) ? baseVal + +$$(min) : +$$(max) - baseVal;
+    return clamp(result, +$$(min), +$$(max));
   };
   const position = (e) => {
     const coordinateStyle = constants.orientation[$$(orientation)].coordinate;
@@ -140,15 +138,15 @@ const Slider = (props) => {
     const clientCoordinateStyle = `client${capitalize(coordinateStyle)}`;
     const coordinate = !("touches" in e) ? e[clientCoordinateStyle] : e.touches[0][clientCoordinateStyle];
     const direction = $$(sliderRef).getBoundingClientRect()[directionStyle];
-    const pos = $$(reverse) ? direction - coordinate - $$(grab) : coordinate - direction - $$(grab);
+    const pos = $$(reverse) ? direction - coordinate - +$$(grab) : coordinate - direction - +$$(grab);
     sliderValue(getValueFromPosition(pos));
     return sliderValue;
   };
   const coordinates = (pos, isLabel = false) => {
     const value2 = getValueFromPosition(pos);
     const position2 = getPositionFromValue(value2, isLabel);
-    const handlePos = $$(isHorizontal) ? position2 + $$(grab) : position2;
-    const fillPos = $$(isHorizontal) ? handlePos : $$(limit) - handlePos;
+    const handlePos = $$(isHorizontal) ? position2 + +$$(grab) : position2;
+    const fillPos = $$(isHorizontal) ? handlePos : +$$(limit) - handlePos;
     return {
       fill: fillPos,
       handle: handlePos,
@@ -159,11 +157,11 @@ const Slider = (props) => {
     "ul",
     {
       ref: labelsRef,
-      className: [
+      class: [
         "rangesliderLabels relative select-none",
         () => $$(isHorizontal) ? "left-[-15px] top-[20px]" : "left-[15px] top-[8px]"
       ],
-      children: $$(labels2)
+      children: Object.values($$(labels2))
     }
   );
   const labelItems = useMemo(() => {
@@ -183,7 +181,7 @@ const Slider = (props) => {
           /* @__PURE__ */ jsx(
             "li",
             {
-              className: [
+              class: [
                 //`
                 // absolute text-sm cursor-pointer inline-block top-2.5 
                 // [transform:translate3d(-50%,0,0)]
@@ -194,9 +192,8 @@ const Slider = (props) => {
                             before:[transform:translate3d(0,-50%,0)] before:bg-[black] list-none`
               ],
               "data-value": key,
-              onMouseDown: handleDrag,
-              onTouchStart: handleStart,
-              onTouchEnd: handleEnd,
+              onPointerDown: handleStart,
+              onPointerUp: handleEnd,
               style: labelStyle,
               children: $$(labels)[key]
             }
@@ -236,7 +233,7 @@ const Slider = (props) => {
       onTouchEnd: handleEnd,
       style: props.style,
       children: [
-        /* @__PURE__ */ jsx("div", { className: [
+        /* @__PURE__ */ jsx("div", { class: [
           "rangesliderFill block shadow-[inset_0_1px_3px_rgba(0,0,0,0.4)] absolute",
           () => $$(isHorizontal) ? "h-full bg-[#7cb342] rounded-[10px] top-0" + ($$(reverse) ? " right-0" : "") : " w-full bg-[#7cb342] shadow-none bottom-0" + ($$(reverse) ? " top-0" : "")
         ], style: fillStyle }),
@@ -244,7 +241,7 @@ const Slider = (props) => {
           "div",
           {
             ref: handleRef,
-            className: [
+            class: [
               "rangesliderHandle bg-white border cursor-pointer inline-block absolute shadow-[0_1px_3px_rgba(0,0,0,0.4),0_-1px_3px_rgba(0,0,0,0.4)] border-solid border-[#ccc] ",
               () => $$(isHorizontal) ? 'w-[30px] h-[30px] rounded-[30px] top-2/4 after:content-["_"] after:absolute after:w-4 after:h-4 after:bg-[#dadada] after:shadow-[0_1px_3px_rgba(0,0,0,0.4)_inset,0_-1px_3px_rgba(0,0,0,0.4)_inset] after:rounded-[50%] after:left-1.5 after:top-1.5 [transform:translate3d(-50%,-50%,0)]' : "absolute w-[30px] h-2.5 shadow-none -left-2.5"
             ],
@@ -255,12 +252,12 @@ const Slider = (props) => {
             style: handleStyle,
             tabIndex: 0,
             children: [
-              () => $$(showTooltip) ? /* @__PURE__ */ jsx("div", { ref: tooltipRef, className: [
+              () => $$(showTooltip) ? /* @__PURE__ */ jsx("div", { ref: tooltipRef, class: [
                 "rangesliderHandle-tooltip w-10 h-10 text-center absolute bg-[rgba(0,0,0,0.8)] font-[normal] text-sm transition-all duration-100 ease-[ease-in] rounded inline-block text-[white] after:content-[' _'] after:absolute after:w-0 after:h-0 select-none",
                 () => $$(isHorizontal) ? "top-[-55px] after:border-t-8 after:border-t-[rgba(0,0,0,0.8)] after:border-x-8 after:border-x-transparent after:border-solid after:left-2/4 left-2/4 after:-bottom-2 after:[transform:translate3d(-50%,0,0)] [transform:translate3d(-50%,0%,0)]" : "-left-full top-2/4 after:border-l-8 after:border-l-[rgba(0,0,0,0.8)] after:border-y-8 after:border-y-transparent after:border-solid after:left-full after:top-3 [transform:translate3d(-50%,-50%,0)]",
                 () => $$(reverse) ? $$(isHorizontal) ? "right-0" : "top-0 bottom-[inherit]" : ""
               ], children: /* @__PURE__ */ jsx("span", { class: "inline-block leading-[100%] mt-3", children: () => handleTooltip($$(sliderValue)) }) }) : null,
-              /* @__PURE__ */ jsx("div", { className: "rangesliderHandle-label select-none", children: formatLabel })
+              /* @__PURE__ */ jsx("div", { class: "rangesliderHandle-label select-none", children: formatLabel })
             ]
           }
         ),
