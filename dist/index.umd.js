@@ -1,5 +1,5 @@
 (function(global, factory) {
-  typeof exports === "object" && typeof module !== "undefined" ? factory(exports, require("woby/jsx-runtime"), require("woby")) : typeof define === "function" && define.amd ? define(["exports", "woby/jsx-runtime", "woby"], factory) : (global = typeof globalThis !== "undefined" ? globalThis : global || self, factory(global["woby-list"] = {}, global["woby/jsx-runtime"], global.woby));
+  typeof exports === "object" && typeof module !== "undefined" ? factory(exports, require("woby/jsx-runtime"), require("woby")) : typeof define === "function" && define.amd ? define(["exports", "woby/jsx-runtime", "woby"], factory) : (global = typeof globalThis !== "undefined" ? globalThis : global || self, factory(global["@woby/list"] = {}, global["woby/jsx-runtime"], global.woby));
 })(this, (function(exports2, jsxRuntime, woby) {
   "use strict";
   function capitalize(str) {
